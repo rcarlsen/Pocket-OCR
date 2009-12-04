@@ -9,6 +9,9 @@
 #import "OCRDisplayViewController.h"
 #import "baseapi.h"
 
+#import "UIImage+Resize.h"
+#import <math.h>
+
 @implementation OCRDisplayViewController
 
 @synthesize outputString,outputView,cameraButton, actionButton, thumbImageView, statusLabel;
@@ -121,6 +124,7 @@
 - (void)threadedReadAndProcessImage:(UIImage *)uiImage {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
+    
     CGSize imageSize = [uiImage size];
     double bytes_per_line	= CGImageGetBytesPerRow([uiImage CGImage]);
     double bytes_per_pixel	= CGImageGetBitsPerPixel([uiImage CGImage]) / 8.0;
@@ -145,21 +149,21 @@
     [pool release];
 }
 
-//- (UIImage*)imageWithImage:(UIImage*)image 
-//              scaledToSize:(CGSize)newSize;
-//{
-//    // calculate aspect ratio:
-//    float ratio = image.size.height / image.size.width;
-//    float aspectHeight = newSize.width * ratio;
-//    CGSize ratioSize = CGSizeMake(newSize.width, aspectHeight);
-//    
-//    UIGraphicsBeginImageContext( ratioSize );
-//    [image drawInRect:CGRectMake(0,0,ratioSize.width,ratioSize.height)];
-//    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    
-//    return newImage;
-//}
+- (UIImage*)imageWithImage:(UIImage*)image 
+              scaledToSize:(CGSize)newSize;
+{
+    // calculate aspect ratio:
+    float ratio = image.size.height / image.size.width;
+    float aspectHeight = newSize.width * ratio;
+    CGSize ratioSize = CGSizeMake(newSize.width, aspectHeight);
+    
+    UIGraphicsBeginImageContext( ratioSize );
+    [image drawInRect:CGRectMake(0,0,ratioSize.width,ratioSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
 
 #pragma mark -
 #pragma mark Application's documents directory
@@ -240,13 +244,8 @@
     NSLog(@"Picker has returned");
     // send the edited image to the imageField (view)
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-//    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    // [imageForOCR setImage:image];
-//    
-//    NSLog(@"%@",[[info objectForKey:UIImagePickerControllerCropRect] description]);
-//    
-//    imageForOCR = [self imageWithImage:image scaledToSize:CGSizeMake(1000, 1000)];
-    
+    //UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+
     // process the selected image:
     [activityView startAnimating];
     
@@ -254,198 +253,50 @@
     [outputView setText:@""];
         
     // set the thumbnail image:
-    [thumbImageView setImage:image];
+    // get the thumbnailView size
+    NSInteger thumbSize = thumbImageView.frame.size.width;
+    [thumbImageView setImage:[image thumbnailImage:thumbSize 
+                                 transparentBorder:0 cornerRadius:0 
+                              interpolationQuality:kCGInterpolationDefault]];
     
-    [picker dismissModalViewControllerAnimated:YES];
+    [self dismissModalViewControllerAnimated:YES];
     
-    NSDictionary * assets = [NSDictionary dictionaryWithObjectsAndKeys:image, @"smallCroppedImage", info, @"editInfo", nil];
-    [self performSelector:@selector(imagePickerControllerDidFinishThreaded:) withObject:assets afterDelay:0.05];
+    // crop the image to the bounds provided
+    // TODO: make this all threaded?
+    image = [info objectForKey:UIImagePickerControllerOriginalImage];    
+    NSLog(@"orig image size: %@", [[NSValue valueWithCGSize:image.size] description]);
     
+    // save the image:
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil); 
+     
+    CGRect rect;
+    [[info objectForKey:UIImagePickerControllerCropRect] getValue:&rect];
+    
+    // fake resize to get the orientation right
+    image = [image resizedImage:image.size interpolationQuality:kCGInterpolationDefault];
+
+    // crop, but maintain original size:
+    image = [image croppedImage:rect];
+    NSLog(@"cropped image size: %@", [[NSValue valueWithCGSize:image.size] description]);
+
+    // for testing.
+    //[self.view addSubview:[[UIImageView alloc] initWithImage:image]];
+
+    // resize, so as to not choke tesseract:
+    CGFloat newWidth = (1000 < image.size.width) ? 1000 : image.size.width;
+    CGSize newSize = CGSizeMake(newWidth,newWidth);
+
+    image = [image resizedImage:newSize interpolationQuality:kCGInterpolationHigh];
+    NSLog(@"resized image size: %@", [[NSValue valueWithCGSize:image.size] description]);
+
+
+
     // process image, threaded:
-//    [NSThread detachNewThreadSelector:@selector(threadedReadAndProcessImage:) toTarget:self withObject:imageForOCR];  
+    //[NSThread detachNewThreadSelector:@selector(threadedReadAndProcessImage:) toTarget:self withObject:image]; 
+    [self performSelector:@selector(threadedReadAndProcessImage:) withObject:image afterDelay:0.05];
+
 }
 
-
-- (void)imagePickerControllerDidFinishThreaded:(NSDictionary*)assets
-{
-    NSDictionary        * editInfo = [assets objectForKey: @"editInfo"];
-    CGRect                editCropRect = [[editInfo valueForKey:UIImagePickerControllerCropRect] CGRectValue];  
-    
-    // 1. Determine original image orientation and size
-    UIImage             * originalImage = [editInfo valueForKey: UIImagePickerControllerOriginalImage];
-    UIImageOrientation    originalOrientation = originalImage.imageOrientation;
-    CGSize                originalSize = originalImage.size;
-    CGSize                desiredSize = CGSizeMake(1024,1024);
-    
-    // 2. Modify crop rect to reflect image orientation
-    CGFloat oldY = editCropRect.origin.y;
-    CGFloat oldOriginalW = originalSize.width;
-    CGFloat tmp;
-    
-    switch (originalOrientation) {
-        case UIImageOrientationUp:      //EXIF 1
-            break;
-            
-        case UIImageOrientationDown:    //EXIF 3
-            // X flipped horizontally
-            // Y flipped vertically
-            editCropRect.origin.x = originalSize.width - (editCropRect.size.width + editCropRect.origin.x);
-            editCropRect.origin.y = originalSize.height - (editCropRect.size.height + editCropRect.origin.y);
-            break;
-            
-        case UIImageOrientationLeft:    //EXIF 6
-            // fix info for original image.
-            originalSize.width = originalSize.height;
-            originalSize.height = oldOriginalW;
-            
-            // fix crop rect
-			tmp = editCropRect.size.height;
-			editCropRect.size.height = editCropRect.size.width;
-			editCropRect.size.width = tmp;
-            
-            // rotation to the left
-            editCropRect.origin.y = originalSize.height - (editCropRect.origin.x + editCropRect.size.height);
-            editCropRect.origin.x = oldY;
-            break;
-            
-        case UIImageOrientationRight:   //EXIF 8
-            // fix info for original image.
-            originalSize.width = originalSize.height;
-            originalSize.height = oldOriginalW;
-            
-            // fix crop rect
-			tmp = editCropRect.size.height;
-			editCropRect.size.height = editCropRect.size.width;
-			editCropRect.size.width = tmp;
-            
-            // rotate to the right
-            editCropRect.origin.y = editCropRect.origin.x;
-            editCropRect.origin.x = originalSize.height - oldY;
-            break;
-            
-        default:
-            break;
-    }
-    
-    // 2.5. make the damn thing square if it's ALMOST square
-    if (fabs((editCropRect.size.height - editCropRect.size.width) / fminf(originalSize.height, originalSize.width)) < 0.0295){
-        editCropRect.size.width = fminf(editCropRect.size.width, editCropRect.size.height);
-        editCropRect.size.height = editCropRect.size.width;
-    }
-    
-    // 3. Crop image using crop rect
-    UIGraphicsBeginImageContext(desiredSize);
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	CGImageRef image = CGImageCreateWithImageInRect([originalImage CGImage], editCropRect);
-    CGRect imageRect = CGRectMake(0.0f, 0.0f, desiredSize.width, desiredSize.height);
-    
-    // Image width < Image height. Just center vertically
-    if (editCropRect.size.width / editCropRect.size.height < 1){
-        imageRect.origin.x = (desiredSize.width - editCropRect.size.width * desiredSize.height/editCropRect.size.height)/2;
-        imageRect.size.width -= imageRect.origin.x * 2;
-        
-        // Image width > Image height
-    } else if (editCropRect.size.width / editCropRect.size.height > 1){
-        float extraHeight = desiredSize.height - editCropRect.size.height * (desiredSize.width / editCropRect.size.width);
-        
-        // If the crop rect's origin is at the top of the screen, some of it might be clear (IE, the user may
-        // have dragged "too far" and have some white space at the top of the preview box
-        if (editCropRect.origin.y == 0) {
-            imageRect.size.height -= extraHeight;
-            if (roundf(editCropRect.size.height) == roundf(originalSize.height))
-                imageRect.origin.y = extraHeight / 2;
-            else
-                imageRect.origin.y = 0;
-            
-            // User dragged "too far" down, and white space is visible at the bottom of preview box
-        } else if (fabs(editCropRect.origin.y - (originalSize.height - roundf(editCropRect.size.height))) <= 1.1) {
-            imageRect.origin.y = extraHeight;
-            imageRect.size.height -= extraHeight;
-            
-        }else {
-            imageRect.origin.y = (desiredSize.height - editCropRect.size.height * desiredSize.width/editCropRect.size.width)/2;
-            imageRect.size.height -= imageRect.origin.y * 2;
-        }
-    }
-    
-    CGContextClearRect(context, CGRectMake(0,0,desiredSize.width,desiredSize.height));
-	CGContextDrawImage(context, imageRect, image);
-	UIImage* croppedImage = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-	CGImageRelease(image);
-    
-    // 4. Perform image rotation
-    UIImage * finalImage = [self rotateImage: croppedImage byOrientationFlag: originalOrientation];
-    
-    // DO SOMETHING WITH finalImage!
-    imageForOCR = finalImage;
-    [self threadedReadAndProcessImage:imageForOCR]; // should already be threaded.
-}
-
-#pragma mark Convenience Functions for Image Picking
-
-- (UIImage*)rotateImage:(UIImage*)img byOrientationFlag:(UIImageOrientation)orient
-{
-	CGImageRef          imgRef = img.CGImage;
-	CGFloat             width = CGImageGetWidth(imgRef);
-	CGFloat             height = CGImageGetHeight(imgRef);
-	CGAffineTransform   transform = CGAffineTransformIdentity;
-	CGRect              bounds = CGRectMake(0, 0, width, height);
-    CGSize              imageSize = bounds.size;
-	CGFloat             boundHeight;
-    
-	switch(orient) {
-            
-		case UIImageOrientationUp: //EXIF = 1
-			transform = CGAffineTransformIdentity;
-			break;
-            
-		case UIImageOrientationDown: //EXIF = 3
-			transform = CGAffineTransformMakeTranslation(imageSize.width, imageSize.height);
-			transform = CGAffineTransformRotate(transform, M_PI);
-			break;
-            
-		case UIImageOrientationLeft: //EXIF = 6
-			boundHeight = bounds.size.height;
-			bounds.size.height = bounds.size.width;
-			bounds.size.width = boundHeight;
-			transform = CGAffineTransformMakeTranslation(imageSize.height, imageSize.width);
-			transform = CGAffineTransformScale(transform, -1.0, 1.0);
-			transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
-			break;
-            
-		case UIImageOrientationRight: //EXIF = 8
-			boundHeight = bounds.size.height;
-			bounds.size.height = bounds.size.width;
-			bounds.size.width = boundHeight;
-			transform = CGAffineTransformMakeTranslation(0.0, imageSize.width);
-			transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
-			break;
-            
-		default:
-            // image is not auto-rotated by the photo picker, so whatever the user
-            // sees is what they expect to get. No modification necessary
-            transform = CGAffineTransformIdentity;
-            break;
-            
-	}
-    
-	UIGraphicsBeginImageContext(bounds.size);
-	CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    if ((orient == UIImageOrientationDown) || (orient == UIImageOrientationRight) || (orient == UIImageOrientationUp)){
-        // flip the coordinate space upside down
-        CGContextScaleCTM(context, 1, -1);
-        CGContextTranslateCTM(context, 0, -height);
-    }
-    
-	CGContextConcatCTM(context, transform);
-	CGContextDrawImage(UIGraphicsGetCurrentContext(), CGRectMake(0, 0, width, height), imgRef);
-	UIImage *imageCopy = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-    
-	return imageCopy;
-}
 
 
 #pragma mark MailComposer delegate
