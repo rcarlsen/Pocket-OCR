@@ -1,0 +1,17 @@
+# xcode noise
+build/*
+*.pbxuser
+*.mode1v3
+Info.plist
+*.xcodeproj
+
+# old skool
+.svn
+
+# osx noise
+.DS_Store
+profile
+
+# ignore other object files
+*.o
+
