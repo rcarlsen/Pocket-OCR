@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     activityView.center = self.view.center;
     activityView.hidesWhenStopped = YES;
     [self.view addSubview:activityView];
@@ -66,8 +66,6 @@
     // can't find the variable name for this.
     // init the tesseract engine.
     tess = new TessBaseAPI();
-
-    //int result = tess->Init([tessdataPath cStringUsingEncoding:NSUTF8StringEncoding], "eng");
     
     tess->SimpleInit([dataPath cStringUsingEncoding:NSUTF8StringEncoding],  // Path to tessdata-no ending /.
                      "eng",  // ISO 639-3 string or NULL.
@@ -99,6 +97,8 @@
     
     [statusLabel setText:[NSString stringWithString:@"iPhone tesseract-ocr"]];
     [outputView setText:outputString]; 
+    
+    [thumbImageView shrinkToThumbnail];
 }
 
 // non-threaded...don't use.
@@ -123,7 +123,6 @@
 // preferred, threaded method:
 - (void)threadedReadAndProcessImage:(UIImage *)uiImage {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    
     
     CGSize imageSize = [uiImage size];
     double bytes_per_line	= CGImageGetBytesPerRow([uiImage CGImage]);
@@ -254,21 +253,28 @@
         
     // set the thumbnail image:
     // get the thumbnailView size
-    NSInteger thumbSize = thumbImageView.frame.size.width;
-    [thumbImageView setImage:[image thumbnailImage:thumbSize 
-                                 transparentBorder:0 cornerRadius:0 
-                              interpolationQuality:kCGInterpolationDefault]];
+//    NSInteger thumbSize = thumbImageView.frame.size.width;
+//    [thumbImageView setImage:[image thumbnailImage:thumbSize 
+//                                 transparentBorder:0 cornerRadius:0 
+//                              interpolationQuality:kCGInterpolationDefault]];
+    
+    [thumbImageView setImage:image];
     
     [self dismissModalViewControllerAnimated:YES];
+    
+    // zoom the thumbnail
+    [thumbImageView zoomImageToCenter];
     
     // crop the image to the bounds provided
     // TODO: make this all threaded?
     image = [info objectForKey:UIImagePickerControllerOriginalImage];    
     NSLog(@"orig image size: %@", [[NSValue valueWithCGSize:image.size] description]);
     
-    // save the image:
-    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil); 
-     
+    // save the image, only if it's a newly taken image:
+    if([picker sourceType] == UIImagePickerControllerSourceTypeCamera){
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil); 
+    }
+    
     CGRect rect;
     [[info objectForKey:UIImagePickerControllerCropRect] getValue:&rect];
     
@@ -289,7 +295,8 @@
     image = [image resizedImage:newSize interpolationQuality:kCGInterpolationHigh];
     NSLog(@"resized image size: %@", [[NSValue valueWithCGSize:image.size] description]);
 
-
+    //for debugging:
+//    [thumbImageView setImage:image];
 
     // process image, threaded:
     //[NSThread detachNewThreadSelector:@selector(threadedReadAndProcessImage:) toTarget:self withObject:image]; 
@@ -378,6 +385,11 @@
 }
 
 
+//#pragma mark Touch events
+//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+//    NSLog(@"-- I AM TOUCH-ENDED --");
+//    
+//}
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.

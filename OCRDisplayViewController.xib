@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="15"/>
+			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -244,8 +244,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="42802488"/>
 							<reference ref="505782876"/>
-							<reference ref="930318828"/>
 							<reference ref="1060362418"/>
+							<reference ref="930318828"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -296,8 +296,8 @@
 						<reference key="object" ref="930318828"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="104911380"/>
 							<reference ref="793421420"/>
+							<reference ref="104911380"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -328,6 +328,7 @@
 					<string>1.IBPluginDependency</string>
 					<string>10.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
+					<string>13.CustomClassName</string>
 					<string>13.IBPluginDependency</string>
 					<string>14.IBPluginDependency</string>
 					<string>15.IBPluginDependency</string>
@@ -344,6 +345,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>ZoomableImage</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -383,9 +385,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>displayComposerSheet</string>
 							<string>selectImage:</string>
+							<string>zoomThumbnail:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -406,12 +410,20 @@
 							<string>UIBarButtonItem</string>
 							<string>UITextView</string>
 							<string>UILabel</string>
-							<string>UIImageView</string>
+							<string>ZoomableImage</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">OCRDisplayViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">ZoomableImage</string>
+					<string key="superclassName">UIImageView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/ZoomableImage.h</string>
 					</object>
 				</object>
 			</object>
