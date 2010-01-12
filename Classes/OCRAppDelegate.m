@@ -27,8 +27,8 @@
 @synthesize window;
 
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {    
-
+- (void)applicationDidFinishLaunching:(UIApplication *)application 
+{
     displayViewController = [[OCRDisplayViewController alloc] initWithNibName:@"OCRDisplayViewController" bundle:nil];
     displayViewController.view.frame = [UIScreen mainScreen].applicationFrame;
     
@@ -37,7 +37,8 @@
 }
 
 
-- (void)dealloc {
+- (void)dealloc 
+{
     [displayViewController release];
     [window release];
     

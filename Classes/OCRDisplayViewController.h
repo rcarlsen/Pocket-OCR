@@ -60,13 +60,11 @@
 -(void)updateTextDisplay;
 
 - (NSString *)applicationDocumentsDirectory;
-- (IBAction) selectImage: (id) sender;
--(void) displayImagePickerWithSource:(UIImagePickerControllerSourceType)src;
--(IBAction)zoomThumbnail:(id)sender;
+- (IBAction)selectImage: (id) sender;
+-(void)displayImagePickerWithSource:(UIImagePickerControllerSourceType)src;
 
 -(IBAction)displayComposerSheet;
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error;
 
-- (UIImage*)rotateImage:(UIImage*)img byOrientationFlag:(UIImageOrientation)orient;
 - (UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize;
 @end
