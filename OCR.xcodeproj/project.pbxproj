@@ -1,0 +1,327 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		240C703510C8F5A800CD7AD1 /* shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 240C703410C8F5A800CD7AD1 /* shadow.png */; };
+		241B1E6710517E3800926F2B /* OCRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 241B1E6610517E3800926F2B /* OCRAppDelegate.m */; };
+		241B2044105189DB00926F2B /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 241B1FF9105189DA00926F2B /* tessdata */; };
+		2463448F10CC281000011876 /* ZoomableImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2463448E10CC281000011876 /* ZoomableImage.m */; };
+		246F3BCC105A146600794E81 /* libtesseract_full.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 246F3BCB105A146600794E81 /* libtesseract_full.a */; };
+		2482F02B10FC300900EFB5A2 /* OCRDisplayViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2482F02A10FC300900EFB5A2 /* OCRDisplayViewController.mm */; };
+		24B2BCC910C8912E00A13CE0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B2BCC810C8912E00A13CE0 /* MessageUI.framework */; };
+		24BA10F010C882E600016CED /* TessIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 24BA10EF10C882E600016CED /* TessIcon.png */; };
+		24BA110F10C884F300016CED /* OCRDisplayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24BA110D10C884F300016CED /* OCRDisplayViewController.xib */; };
+		24BC002410FC486A0043EB8F /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 24BC002310FC486A0043EB8F /* readme.txt */; };
+		24F2866410C9BA88004BB5CA /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F2865F10C9BA87004BB5CA /* UIImage+Alpha.m */; };
+		24F2866510C9BA88004BB5CA /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F2866110C9BA88004BB5CA /* UIImage+Resize.m */; };
+		24F2866610C9BA88004BB5CA /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F2866310C9BA88004BB5CA /* UIImage+RoundedCorner.m */; };
+		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D3623240D0F684500981E51 /* OCRAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCRAppDelegate.h; sourceTree = "<group>"; };
+		1D6058910D05DD3D006BFB54 /* OCR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCR.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		240C703410C8F5A800CD7AD1 /* shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shadow.png; path = dev/shadow.png; sourceTree = "<group>"; };
+		241B1E6610517E3800926F2B /* OCRAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCRAppDelegate.m; sourceTree = "<group>"; };
+		241B1FF9105189DA00926F2B /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		2463448D10CC281000011876 /* ZoomableImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomableImage.h; sourceTree = "<group>"; };
+		2463448E10CC281000011876 /* ZoomableImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomableImage.m; sourceTree = "<group>"; };
+		246F3BCB105A146600794E81 /* libtesseract_full.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtesseract_full.a; path = "../../tesseract-2.04/libraries/libtesseract_full.a"; sourceTree = SOURCE_ROOT; };
+		246F3BD1105A148D00794E81 /* baseapi.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = baseapi.h; path = "../../tesseract-2.04/ccmain/baseapi.h"; sourceTree = SOURCE_ROOT; };
+		2482F02910FC300900EFB5A2 /* OCRDisplayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCRDisplayViewController.h; sourceTree = "<group>"; };
+		2482F02A10FC300900EFB5A2 /* OCRDisplayViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OCRDisplayViewController.mm; sourceTree = "<group>"; };
+		24B2BCC810C8912E00A13CE0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		24BA10EF10C882E600016CED /* TessIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TessIcon.png; path = dev/TessIcon.png; sourceTree = "<group>"; };
+		24BA110D10C884F300016CED /* OCRDisplayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OCRDisplayViewController.xib; sourceTree = "<group>"; };
+		24BC002310FC486A0043EB8F /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		24F2865E10C9BA87004BB5CA /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
+		24F2865F10C9BA87004BB5CA /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
+		24F2866010C9BA87004BB5CA /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		24F2866110C9BA88004BB5CA /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		24F2866210C9BA88004BB5CA /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		24F2866310C9BA88004BB5CA /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
+		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* OCR_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCR_Prefix.pch; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* OCR-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OCR-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
+				246F3BCC105A146600794E81 /* libtesseract_full.a in Frameworks */,
+				24B2BCC910C8912E00A13CE0 /* MessageUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2482F02910FC300900EFB5A2 /* OCRDisplayViewController.h */,
+				2482F02A10FC300900EFB5A2 /* OCRDisplayViewController.mm */,
+				241B1E6610517E3800926F2B /* OCRAppDelegate.m */,
+				1D3623240D0F684500981E51 /* OCRAppDelegate.h */,
+				2463448D10CC281000011876 /* ZoomableImage.h */,
+				2463448E10CC281000011876 /* ZoomableImage.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* OCR.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		24F2865D10C9BA87004BB5CA /* UIImage-categories */ = {
+			isa = PBXGroup;
+			children = (
+				24F2865E10C9BA87004BB5CA /* UIImage+Alpha.h */,
+				24F2865F10C9BA87004BB5CA /* UIImage+Alpha.m */,
+				24F2866010C9BA87004BB5CA /* UIImage+Resize.h */,
+				24F2866110C9BA88004BB5CA /* UIImage+Resize.m */,
+				24F2866210C9BA88004BB5CA /* UIImage+RoundedCorner.h */,
+				24F2866310C9BA88004BB5CA /* UIImage+RoundedCorner.m */,
+			);
+			path = "UIImage-categories";
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				24F2865D10C9BA87004BB5CA /* UIImage-categories */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				246F3BD1105A148D00794E81 /* baseapi.h */,
+				32CA4F630368D1EE00C91783 /* OCR_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				240C703410C8F5A800CD7AD1 /* shadow.png */,
+				24BA110D10C884F300016CED /* OCRDisplayViewController.xib */,
+				24BA10EF10C882E600016CED /* TessIcon.png */,
+				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				8D1107310486CEB800E47090 /* OCR-Info.plist */,
+				241B1FF9105189DA00926F2B /* tessdata */,
+				24BC002310FC486A0043EB8F /* readme.txt */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				246F3BCB105A146600794E81 /* libtesseract_full.a */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
+				24B2BCC810C8912E00A13CE0 /* MessageUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* OCR */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "OCR" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OCR;
+			productName = OCR;
+			productReference = 1D6058910D05DD3D006BFB54 /* OCR.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "OCR" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* OCR */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
+				241B2044105189DB00926F2B /* tessdata in Resources */,
+				24BA10F010C882E600016CED /* TessIcon.png in Resources */,
+				24BA110F10C884F300016CED /* OCRDisplayViewController.xib in Resources */,
+				240C703510C8F5A800CD7AD1 /* shadow.png in Resources */,
+				24BC002410FC486A0043EB8F /* readme.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				241B1E6710517E3800926F2B /* OCRAppDelegate.m in Sources */,
+				24F2866410C9BA88004BB5CA /* UIImage+Alpha.m in Sources */,
+				24F2866510C9BA88004BB5CA /* UIImage+Resize.m in Sources */,
+				24F2866610C9BA88004BB5CA /* UIImage+RoundedCorner.m in Sources */,
+				2463448F10CC281000011876 /* ZoomableImage.m in Sources */,
+				2482F02B10FC300900EFB5A2 /* OCRDisplayViewController.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = OCR_Prefix.pch;
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "OCR-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../tesseract-ocr-svn/api\"",
+					"\"$(SRCROOT)/../../tesseract-ocr-svn\"",
+					"\"$(SRCROOT)/../../tesseract-2.04/libraries\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				PRODUCT_NAME = OCR;
+				SDKROOT = iphoneos3.0;
+				USER_HEADER_SEARCH_PATHS = "/Users/rcarlsen/Documents/_software_dev/tesseract-ocr-svn/**";
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = OCR_Prefix.pch;
+				INFOPLIST_FILE = "OCR-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../tesseract-ocr-svn/api\"",
+					"\"$(SRCROOT)/../../tesseract-ocr-svn\"",
+					"\"$(SRCROOT)/../../tesseract-2.04/libraries\"",
+				);
+				PRODUCT_NAME = OCR;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.0;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "OCR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "OCR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

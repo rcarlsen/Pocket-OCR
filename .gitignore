@@ -2,8 +2,9 @@
 build/*
 *.pbxuser
 *.mode1v3
-Info.plist
-*.xcodeproj
+*.mode2v3
+#Info.plist
+#*.xcodeproj
 
 # old skool
 .svn
