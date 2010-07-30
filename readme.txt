@@ -13,6 +13,8 @@ http://code.google.com/p/tesseract-ocr/
 A build script and instructions are available at:
 http://robertcarlsen.net/2009/07/15/cross-compiling-for-iphone-dev-884
 
+Issue tracker now available at http://bugs.robertcarlsen.net/projects/pocket-ocr-200.
+
 Enjoy!
 -Robert
 
