@@ -28,6 +28,7 @@
 // conditionally import or forward declare to contain objective-c++ code to here.
 #ifdef __cplusplus
 #import "baseapi.h"
+using namespace tesseract;
 #else
 @class TessBaseAPI;
 #endif

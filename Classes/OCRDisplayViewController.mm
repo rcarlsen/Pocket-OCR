@@ -63,7 +63,7 @@
     if (![fileManager fileExistsAtPath:dataPath]) {
         // get the path to the app bundle (with the tessdata dir)
         NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
-        NSString *tessdataPath = [bundlePath stringByAppendingPathComponent:@"tessdata"];
+        NSString *tessdataPath = [bundlePath stringByAppendingPathComponent:@"tessdata-svn"];
         if (tessdataPath) {
             [fileManager copyItemAtPath:tessdataPath toPath:dataPath error:NULL];
         }
@@ -74,9 +74,8 @@
     
     // init the tesseract engine.
     tess = new TessBaseAPI();
-    tess->SimpleInit([dataPath cStringUsingEncoding:NSUTF8StringEncoding],  // Path to tessdata-no ending /.
-                     "eng",  // ISO 639-3 string or NULL.
-                     false);
+    tess->Init([dataPath cStringUsingEncoding:NSUTF8StringEncoding],    // Path to tessdata-no ending /.
+               "eng");                                                  // ISO 639-3 string or NULL.
     
     NSString *output = [NSString stringWithString:@"Select an image to process."];
     [outputView setText:output];
