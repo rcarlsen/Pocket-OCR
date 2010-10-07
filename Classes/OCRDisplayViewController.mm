@@ -119,8 +119,8 @@
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
     CGSize imageSize = [uiImage size];
-    double bytes_per_line	= CGImageGetBytesPerRow([uiImage CGImage]);
-    double bytes_per_pixel	= CGImageGetBitsPerPixel([uiImage CGImage]) / 8.0;
+    int bytes_per_line  = (int)CGImageGetBytesPerRow([uiImage CGImage]);
+    int bytes_per_pixel = (int)CGImageGetBitsPerPixel([uiImage CGImage]) / 8.0;
     
     CFDataRef data = CGDataProviderCopyData(CGImageGetDataProvider([uiImage CGImage]));
     const UInt8 *imageData = CFDataGetBytePtr(data);
@@ -279,7 +279,9 @@
     //[self.view addSubview:[[UIImageView alloc] initWithImage:image]];
 
     // resize, so as to not choke tesseract:
-    CGFloat newWidth = (1000 < croppedImage.size.width) ? 1000 : croppedImage.size.width;
+    // scaling up a low resolution image (eg. screenshots) seems to help the recognition.
+    // 1200 pixels is an arbitrary value, but seems to work well.
+    CGFloat newWidth = 1200; //(1000 < croppedImage.size.width) ? 1000 : croppedImage.size.width;
     CGSize newSize = CGSizeMake(newWidth,newWidth);
 
     croppedImage = [croppedImage resizedImage:newSize interpolationQuality:kCGInterpolationHigh];
