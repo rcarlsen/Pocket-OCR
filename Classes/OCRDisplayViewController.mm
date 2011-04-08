@@ -49,7 +49,7 @@
     [super viewDidLoad];
     
     [statusLabel setText:[NSString stringWithString:kViewTitle]];
-
+	
     activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     activityView.center = self.view.center;
     activityView.hidesWhenStopped = YES;
@@ -79,7 +79,7 @@
     
     NSString *output = [NSString stringWithString:@"Select an image to process."];
     [outputView setText:output];
-
+	
 }
 
 // This displays the converted text in the view
@@ -97,8 +97,8 @@
 - (NSString *)readAndProcessImage:(UIImage *)uiImage 
 {
     CGSize imageSize = [uiImage size];
-    double bytes_per_line	= CGImageGetBytesPerRow([uiImage CGImage]);
-    double bytes_per_pixel	= CGImageGetBitsPerPixel([uiImage CGImage]) / 8.0;
+    int bytes_per_line  = (int)CGImageGetBytesPerRow([uiImage CGImage]);
+    int bytes_per_pixel = (int)CGImageGetBitsPerPixel([uiImage CGImage]) / 8.0;
     
     CFDataRef data = CGDataProviderCopyData(CGImageGetDataProvider([uiImage CGImage]));
     const UInt8 *imageData = CFDataGetBytePtr(data);
@@ -109,8 +109,10 @@
                                      bytes_per_line,
                                      0, 0,
                                      imageSize.width, imageSize.height);
-    
-    return [NSString stringWithUTF8String:text];
+	NSString *textStr = [NSString stringWithUTF8String:text];
+    delete[] text;
+    CFRelease(data);
+    return textStr;
 }
 
 // preferred, threaded method:
@@ -135,7 +137,8 @@
     [self setOutputString:[NSString stringWithCString:text encoding:NSUTF8StringEncoding]];
     
     delete[] text;
-    
+    CFRelease(data);
+	
     // Update the display text. Since we're in a threaded method, run the UI stuff on the main thread.
     [self performSelectorOnMainThread:@selector(updateTextDisplay) withObject:nil waitUntilDone:NO];
     
@@ -178,7 +181,7 @@
     
     // present an alert sheet if a camera is visible and allow the user to select the camera or photo library.
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-//    if(1)  // for testing the alert sheet only
+		//    if(1)  // for testing the alert sheet only
     {
         // this device has a camera, display the alert sheet:
         UIActionSheet *actionSheet = [[UIActionSheet alloc]
@@ -243,7 +246,7 @@
     
     [statusLabel setText:[NSString stringWithString:@"Processing image..."]];
     [outputView setText:@""];
-        
+	
     // send the edited image to the thumbnail view:
     UIImage *thumbImage = [[info objectForKey:UIImagePickerControllerEditedImage] retain];
     
@@ -253,7 +256,7 @@
     
     // zoom the thumbnail
     [thumbImageView zoomImageToCenter];
-
+	
     // TODO: make this all threaded?
     // crop the image to the bounds provided
     UIImage *origImage = [[info objectForKey:UIImagePickerControllerOriginalImage] retain];    
@@ -274,22 +277,22 @@
     // crop, but maintain original size:
     croppedImage = [croppedImage croppedImage:rect];
     NSLog(@"cropped image size: %@", [[NSValue valueWithCGSize:croppedImage.size] description]);
-
+	
     // for testing.
     //[self.view addSubview:[[UIImageView alloc] initWithImage:image]];
-
+	
     // resize, so as to not choke tesseract:
     // scaling up a low resolution image (eg. screenshots) seems to help the recognition.
     // 1200 pixels is an arbitrary value, but seems to work well.
     CGFloat newWidth = 1200; //(1000 < croppedImage.size.width) ? 1000 : croppedImage.size.width;
     CGSize newSize = CGSizeMake(newWidth,newWidth);
-
+	
     croppedImage = [croppedImage resizedImage:newSize interpolationQuality:kCGInterpolationHigh];
     NSLog(@"resized image size: %@", [[NSValue valueWithCGSize:croppedImage.size] description]);
-
+	
     //for debugging:
-//    [thumbImageView setImage:croppedImage];
-
+	//    [thumbImageView setImage:croppedImage];
+	
     // process image, threaded:
     [self performSelector:@selector(threadedReadAndProcessImage:) withObject:croppedImage afterDelay:0.10];
 }
@@ -345,10 +348,10 @@
 	picker.mailComposeDelegate = self;
 	
 	[picker setSubject:@"iPhoneOCR Text"]; // use the product name?
-
+	
 	// Fill out the email body text
     [picker setMessageBody:outputString isHTML:NO];
-
+	
 	[self presentModalViewController:picker animated:YES];
     [picker release];
     
@@ -363,21 +366,21 @@
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
+ - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+ if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+ // Custom initialization
+ }
+ return self;
+ }
+ */
 
 /*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
+ // Override to allow orientations other than the default portrait orientation.
+ - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+ // Return YES for supported orientations
+ return (interfaceOrientation == UIInterfaceOrientationPortrait);
+ }
+ */
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
