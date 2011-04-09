@@ -296,9 +296,9 @@
 					"\"$(SRCROOT)/../../tesseract-ocr-svn\"",
 					"\"$(SRCROOT)/../../tesseract-ocr-svn/outdir\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				PRODUCT_NAME = OCR;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../tesseract-ocr-svn\"/**";
 			};
 			name = Debug;
@@ -319,7 +319,7 @@
 					"\"$(SRCROOT)/../../tesseract-ocr-svn/outdir\"",
 				);
 				PRODUCT_NAME = OCR;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../tesseract-ocr-svn\"/**";
 			};
 			name = Release;
@@ -333,7 +333,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../tesseract-ocr-svn\"/**";
 			};
 			name = Debug;
@@ -348,7 +348,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1.2;
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../tesseract-ocr-svn\"/**";
 			};
 			name = Release;
