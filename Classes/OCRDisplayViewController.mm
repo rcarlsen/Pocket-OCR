@@ -97,8 +97,8 @@
 - (NSString *)readAndProcessImage:(UIImage *)uiImage 
 {
     CGSize imageSize = [uiImage size];
-    double bytes_per_line	= CGImageGetBytesPerRow([uiImage CGImage]);
-    double bytes_per_pixel	= CGImageGetBitsPerPixel([uiImage CGImage]) / 8.0;
+    int bytes_per_line  = (int)CGImageGetBytesPerRow([uiImage CGImage]);
+    int bytes_per_pixel = (int)CGImageGetBitsPerPixel([uiImage CGImage]) / 8.0;
     
     CFDataRef data = CGDataProviderCopyData(CGImageGetDataProvider([uiImage CGImage]));
     const UInt8 *imageData = CFDataGetBytePtr(data);
@@ -109,8 +109,10 @@
                                      bytes_per_line,
                                      0, 0,
                                      imageSize.width, imageSize.height);
-    
-    return [NSString stringWithUTF8String:text];
+    NSString *textStr = [NSString stringWithUTF8String:text];
+    delete[] text;
+    CFRelease(data);
+    return textStr;
 }
 
 // preferred, threaded method:
@@ -135,7 +137,8 @@
     [self setOutputString:[NSString stringWithCString:text encoding:NSUTF8StringEncoding]];
     
     delete[] text;
-    
+    CFRelease(data);
+
     // Update the display text. Since we're in a threaded method, run the UI stuff on the main thread.
     [self performSelectorOnMainThread:@selector(updateTextDisplay) withObject:nil waitUntilDone:NO];
     
